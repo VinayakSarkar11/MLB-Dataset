@@ -72,7 +72,6 @@ def split_by_game_id(full_dataset, train_ratio=0.8, seed=42):
 
 def get_model(num_classes):
 
-    print(f"Downloading R(2+1)D model (Frozen Backbone)...")
     # Load the pre-trained model
     model = torch.hub.load('facebookresearch/pytorchvideo', 'slow_r50', pretrained=True)
     
@@ -105,12 +104,12 @@ def train_engine():
     #Use optimal hardware
     if torch.backends.mps.is_available():
         device = torch.device("mps")
-        print("🚀 Using Apple MPS Acceleration (GPU)")
+        print("Using Apple MPS Acceleration")
     elif torch.cuda.is_available():
         device = torch.device("cuda")
     else:
         device = torch.device("cpu")
-        print("⚠️ Using CPU (This will be slow)")
+        print("Using CPU")
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
     dataset_dir = os.path.join(script_dir, "dataset_full")
